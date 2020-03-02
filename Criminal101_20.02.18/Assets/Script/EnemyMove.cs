@@ -9,31 +9,39 @@ public class EnemyMove : MonoBehaviour
     private NavMeshAgent na;
     private GameObject[] points;
     private int cur;
-    public Vector3 ray;
+    public Vector3 target;
     private MeshRenderer mr;
     public Material red;
+    Ray ray;
 
 
     void Start()
     {
         na = this.GetComponent<NavMeshAgent>();
         points = GameObject.FindGameObjectsWithTag("movepoint");
-        ray = this.transform.TransformDirection(Vector3.forward);
         mr = this.GetComponent<MeshRenderer>();
     }
 
    
     void Update()
     {
+        target = this.transform.TransformDirection(Vector3.forward);
+        ray = new Ray(transform.position, target);
+
         if (na.hasPath == false)
         {
             cur = Random.Range(0, points.Length);
             na.SetDestination(points[cur].transform.position);
         }
 
-        if (Physics.Raycast(transform.position, ray, 10))
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, target, out hit, 10))
         {
-            mr.material = red;
+            if (hit.collider.tag == "Player")
+            {
+                mr.material = red;
+            }
         }
+        Debug.DrawRay(ray.origin, ray.direction * 10, Color.blue);
     }
 }

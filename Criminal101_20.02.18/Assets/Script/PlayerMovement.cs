@@ -26,6 +26,6 @@ public class PlayerMovement : MonoBehaviour
 
         rd.AddForce(Vector3.right * rightLeft, ForceMode.Impulse);
 
-        //rd.AddTorque(new Vector3(0, 1, 0) * rightLeft, ForceMode.Impulse);
+       
     }
 }

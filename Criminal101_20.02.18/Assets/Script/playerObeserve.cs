@@ -6,6 +6,7 @@ public class playerObeserve : MonoBehaviour
 {
     public GameObject enemy;
     private TrailRenderer trail;
+    public bool obeserve;
     
     void Start()
     {
@@ -16,9 +17,10 @@ public class playerObeserve : MonoBehaviour
    
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && obeserve)
         {
             trail.enabled = true;
         }
     }
+
 }
