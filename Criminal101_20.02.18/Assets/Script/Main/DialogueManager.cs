@@ -8,6 +8,7 @@ public class DialogueManager : MonoBehaviour
     public Queue<string> sentences;
     public Text nameText;
     public Text diaText;
+    public Animator boxAnimator;
 
 
     void Start()
@@ -18,6 +19,7 @@ public class DialogueManager : MonoBehaviour
     
    public void startDialogue(Dialogue dialogue)
    {
+        boxAnimator.SetBool("open", true);
         nameText.text = dialogue.name;
         
         foreach(string sentence in dialogue.sentence)
@@ -26,7 +28,6 @@ public class DialogueManager : MonoBehaviour
         }
 
         displayNextSentence();
-
    }
 
     public void displayNextSentence()
@@ -39,12 +40,24 @@ public class DialogueManager : MonoBehaviour
         }
 
         string curSentence = sentences.Dequeue();
-        diaText.text = curSentence;
+        StopAllCoroutines();
+        StartCoroutine(TypeSentence(curSentence));
+        //diaText.text = curSentence;
+    }
+
+    IEnumerator TypeSentence(string sentence)
+    {
+        diaText.text = "";
+        foreach (char letter in sentence)
+        {
+            diaText.text += letter;
+            yield return null;
+        }
     }
 
     public void endDialogue()
     {
-        
+        boxAnimator.SetBool("open", false);
 
     }
 
