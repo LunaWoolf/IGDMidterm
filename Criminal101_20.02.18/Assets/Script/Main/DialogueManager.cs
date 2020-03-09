@@ -9,11 +9,17 @@ public class DialogueManager : MonoBehaviour
     public Text nameText;
     public Text diaText;
     public Animator boxAnimator;
+    //_______________________________________
+    public Button switchscene ;
+   
 
 
     void Start()
     {
         sentences = new Queue<string>();
+        switchscene.enabled = false;
+        switchscene.GetComponentInChildren<Text>().enabled = false;
+        switchscene.image.enabled = false;
     }
 
     
@@ -57,6 +63,9 @@ public class DialogueManager : MonoBehaviour
 
     public void endDialogue()
     {
+        switchscene.enabled = true;
+        switchscene.image.enabled = true;
+        switchscene.GetComponentInChildren<Text>().enabled = true;
         boxAnimator.SetBool("open", false);
 
     }
