@@ -9,6 +9,7 @@ public class DialogueManager : MonoBehaviour
     public Text nameText;
     public Text diaText;
     public Animator boxAnimator;
+    public bool open;
     //_______________________________________
     public Button switchscene ;
    
@@ -17,17 +18,21 @@ public class DialogueManager : MonoBehaviour
     void Start()
     {
         sentences = new Queue<string>();
-        switchscene.enabled = false;
-        switchscene.GetComponentInChildren<Text>().enabled = false;
-        switchscene.image.enabled = false;
+        if (switchscene != null)
+        {
+            switchscene.enabled = false;
+            switchscene.GetComponentInChildren<Text>().enabled = false;
+            switchscene.image.enabled = false;
+        }   
     }
 
     
    public void startDialogue(Dialogue dialogue)
    {
-        boxAnimator.SetBool("open", true);
+        sentences = new Queue<string>();
+        open = true;
+        boxAnimator.SetBool("isOpen", true);
         nameText.text = dialogue.name;
-        
         foreach(string sentence in dialogue.sentence)
         {
             sentences.Enqueue(sentence);
@@ -63,10 +68,14 @@ public class DialogueManager : MonoBehaviour
 
     public void endDialogue()
     {
-        switchscene.enabled = true;
-        switchscene.image.enabled = true;
-        switchscene.GetComponentInChildren<Text>().enabled = true;
-        boxAnimator.SetBool("open", false);
+        if (switchscene != null)
+        {
+            switchscene.enabled = true;
+            switchscene.image.enabled = true;
+            switchscene.GetComponentInChildren<Text>().enabled = true;
+        }
+        boxAnimator.SetBool("isOpen", false);
+        open = false;
 
     }
 

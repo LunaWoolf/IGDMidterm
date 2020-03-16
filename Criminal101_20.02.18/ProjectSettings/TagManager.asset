@@ -6,6 +6,7 @@ TagManager:
   tags:
   - movepoint
   - observe
+  - Hideable
   layers:
   - Default
   - TransparentFX

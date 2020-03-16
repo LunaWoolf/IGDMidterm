@@ -8,19 +8,29 @@ public class UIcontroller : MonoBehaviour
     public Text instruct;
     public Trigger trigger;
     public GameObject tri;
+    public int keyCount = 0;
+    public GameController gc;
 
     void Start()
     {
-        trigger = tri.GetComponent<Trigger>();
+        //trigger = tri.GetComponent<Trigger>();
+        gc = GameObject.Find("Main Camera").GetComponent<GameController>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        /*if (trigger.hit == true)
+      
+
+        if (keyCount == 3)
         {
-            instruct.text = "Got the key. Now go for the box" ;
-        }*/
+            changeText("You Found everything you need!");
+        }
+        if (gc.barPercent > 1f)
+        {
+            changeText("Sorry you lost");
+        }
+
     }
 
     public void changeText(string str)

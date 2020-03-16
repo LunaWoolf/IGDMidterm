@@ -19,7 +19,12 @@ public class Trigger : MonoBehaviour
 
     private void OnCollisionEnter(Collision col)
     {
-        hit = true;
-        uicontrol.changeText("Got the key. Now go for the box");
+        if(col.gameObject.tag == "Player" && !hit)
+        {
+            hit = true;
+            uicontrol.keyCount += 1;
+            uicontrol.changeText("Find " + uicontrol.keyCount + " key");
+        }
+        
     }
 }

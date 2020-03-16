@@ -14,14 +14,17 @@ public class EnemyMove : MonoBehaviour
     public Material red;
     public UIcontroller uicontrol;
     public GameObject canvas;
+    public GameController gc;
+    public GameObject player;
     Ray ray;
-
 
     void Start()
     {
         na = this.GetComponent<NavMeshAgent>();
         points = GameObject.FindGameObjectsWithTag("movepoint");
         mr = this.GetComponent<MeshRenderer>();
+        gc = GameObject.Find("Main Camera").GetComponent<GameController>();
+        player = GameObject.Find("Player");
         uicontrol = canvas.GetComponent<UIcontroller>();
     }
 
@@ -31,8 +34,13 @@ public class EnemyMove : MonoBehaviour
         target = this.transform.TransformDirection(Vector3.forward);
         ray = new Ray(transform.position, target);
 
-        if (na.hasPath == false)
+        if (na.hasPath == false || na.velocity == Vector3.zero)
         {
+            /*int temp = Random.Range(0, points.Length);
+            if (cur == temp)
+            {
+
+            }*/
             cur = Random.Range(0, points.Length);
             na.SetDestination(points[cur].transform.position);
         }
@@ -40,10 +48,9 @@ public class EnemyMove : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(transform.position, target, out hit, 10))
         {
-            if (hit.collider.tag == "Player")
+            if (hit.collider.tag == "Player" && !player.GetComponent<PlayerMovement>().isHide)
             {
-                mr.material = red;
-                uicontrol.changeText("they find you!");
+                gc.barPercent += 0.05f;
 
             }
         }
