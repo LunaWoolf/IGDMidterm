@@ -9,6 +9,7 @@ public class Dialogue
     public bool hasquestion;
     public Question question;
 
+
     [TextArea(3,10)]
     public string[] sentence;
    

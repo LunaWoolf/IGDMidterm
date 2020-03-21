@@ -9,6 +9,9 @@ public class PlayerMovement : MonoBehaviour
     public bool ableToHide = false;
     public bool isHide = false;
     public bool moveable = true;
+    public GameObject body;
+    public GameObject head;
+
 
     void Start()
     {
@@ -21,7 +24,8 @@ public class PlayerMovement : MonoBehaviour
         if (ableToHide && Input.GetKey(KeyCode.H))
         {
             isHide = true;
-            this.GetComponent<MeshRenderer>().enabled = false;
+            body.GetComponent<MeshRenderer>().enabled = false;
+            head.GetComponent<MeshRenderer>().enabled = false;
             moveable = false;
 
         }
@@ -29,7 +33,8 @@ public class PlayerMovement : MonoBehaviour
         if (isHide && Input.GetKeyDown(KeyCode.U))
         {
             isHide = false;
-            this.GetComponent<MeshRenderer>().enabled = true;
+            body.GetComponent<MeshRenderer>().enabled = true;
+            head.GetComponent<MeshRenderer>().enabled = true;
             moveable = true;
         }
     }
@@ -69,7 +74,6 @@ public class PlayerMovement : MonoBehaviour
         }
         
     }
-
     private void OnTriggerExit(Collider col)
     {
         if (col.gameObject.tag == "Hideable")

@@ -34,7 +34,7 @@ public class GameController : MonoBehaviour
     private bool followCheck(GameObject follower)
     {
         Plane[] planes = GeometryUtility.CalculateFrustumPlanes(Maincamera);
-        if (GeometryUtility.TestPlanesAABB(planes, follower.GetComponent<CapsuleCollider>().bounds))
+        if (GeometryUtility.TestPlanesAABB(planes, follower.GetComponent<BoxCollider>().bounds))
             return true;
         else
             return false;

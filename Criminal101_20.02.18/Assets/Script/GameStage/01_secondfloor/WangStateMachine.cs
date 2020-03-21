@@ -5,15 +5,16 @@ using UnityEngine;
 public class WangStateMachine : MonoBehaviour
 {
     public GameObject Wang;
-    public npcWang wscript;
+    public npcWang02 wscript02;
+    public npcWang03 wscript03;
     private WangStates curState;
     public string state;
 
     void Start()
     {
         Wang = this.gameObject;
-        wscript = Wang.GetComponent<npcWang>();
-        wscript.enabled = false;
+        wscript02 = Wang.GetComponent<npcWang02>();
+        wscript02.enabled = false;
         changeState(new StartState(this));
         state = "StartState";
     }

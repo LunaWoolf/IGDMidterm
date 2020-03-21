@@ -37,7 +37,7 @@ public class DialogueManager : MonoBehaviour
         nameText.enabled = true;
         diaText.enabled = true;
         continuebutton.SetActive(true);
-        choices.SetActive(false);
+      
 
         this.dialogue = dialogue;
         sentences = new Queue<string>();
@@ -96,7 +96,7 @@ public class DialogueManager : MonoBehaviour
         {
             loadquestion(dialogue);
         }
-     
+
     }
 
     public void loadquestion(Dialogue dialogue)
@@ -118,13 +118,16 @@ public class DialogueManager : MonoBehaviour
 
     public void runNextDialogue(int num)
     {
+        choices.SetActive(false);
         if (dialogue.question.Choice[num].nextDialogue != null)
+        {
             dialogue.question.Choice[num].nextDialogue.GetComponent<DialogueTrigger>().TriggerDialogue();
+
+        }    
         else
         {
             boxAnimator.SetBool("isOpen", false);
             open = false;
-
         }
 
         
