@@ -6,6 +6,8 @@ using UnityEngine;
 public class Dialogue
 {
     public string name;
+    public bool hasquestion;
+    public Question question;
 
     [TextArea(3,10)]
     public string[] sentence;

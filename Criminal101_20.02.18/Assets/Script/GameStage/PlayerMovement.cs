@@ -5,8 +5,6 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public Rigidbody rd;
-    //public float forwardbackward;
-    //public float rightLeft;
     public float moveSpeed;
     public bool ableToHide = false;
     public bool isHide = false;
@@ -18,9 +16,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     void Update()
-    {
-        //forwardbackward = Input.GetAxis("Horizontal");
-        //rightLeft = Input.GetAxis("Vertical");
+    { 
 
         if (ableToHide && Input.GetKey(KeyCode.H))
         {
@@ -40,9 +36,6 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        //rd.AddForce(transform.forward * -forwardbackward * 0.5f, ForceMode.Impulse);
-
-        //rd.AddForce(Vector3.right * rightLeft, ForceMode.Impulse);
 
         if (moveable)
         {
@@ -65,8 +58,7 @@ public class PlayerMovement : MonoBehaviour
                 transform.position += new Vector3(-moveSpeed * Time.deltaTime, 0, 0);
             }
         }
-
-       
+   
     }
 
     private void OnTriggerEnter(Collider col)

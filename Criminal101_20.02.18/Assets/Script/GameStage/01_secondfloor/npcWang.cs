@@ -16,7 +16,7 @@ public class npcWang : MonoBehaviour
 
 	public Vector3 target;
 
-	public float speed = 10f;
+	public float speed;
     private Vector3 lastAgentVelocity;
     private NavMeshPath lastAgentPath;
     private Vector3 lastAgentDestination;

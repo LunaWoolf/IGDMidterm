@@ -8,15 +8,20 @@ public class DialogueManager : MonoBehaviour
     public Queue<string> sentences;
     public Text nameText;
     public Text diaText;
+    public GameObject continuebutton;
     public Animator boxAnimator;
     public bool open;
+    public GameObject choices;
+    public Dialogue dialogue;
     //_______________________________________
-    public Button switchscene ;
-   
+    public Button switchscene;
+    
 
 
     void Start()
     {
+        choices = GameObject.Find("Choices");
+        choices.SetActive(false);
         sentences = new Queue<string>();
         if (switchscene != null)
         {
@@ -29,6 +34,12 @@ public class DialogueManager : MonoBehaviour
     
    public void startDialogue(Dialogue dialogue)
    {
+        nameText.enabled = true;
+        diaText.enabled = true;
+        continuebutton.SetActive(true);
+        choices.SetActive(false);
+
+        this.dialogue = dialogue;
         sentences = new Queue<string>();
         open = true;
         boxAnimator.SetBool("isOpen", true);
@@ -46,7 +57,7 @@ public class DialogueManager : MonoBehaviour
         
         if(sentences.Count == 0)
         {
-            endDialogue();
+            endDialogue(dialogue);
             return;
         }
 
@@ -66,7 +77,7 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    public void endDialogue()
+    public void endDialogue(Dialogue dialogue)
     {
         if (switchscene != null)
         {
@@ -74,8 +85,49 @@ public class DialogueManager : MonoBehaviour
             switchscene.image.enabled = true;
             switchscene.GetComponentInChildren<Text>().enabled = true;
         }
-        boxAnimator.SetBool("isOpen", false);
-        open = false;
+
+        if (!dialogue.hasquestion)
+        {
+            boxAnimator.SetBool("isOpen", false);
+            open = false;
+        }
+
+        if (dialogue.hasquestion)
+        {
+            loadquestion(dialogue);
+        }
+     
+    }
+
+    public void loadquestion(Dialogue dialogue)
+    {
+        nameText.enabled = false;
+        diaText.enabled = false;
+        continuebutton.SetActive(false);
+
+        choices.SetActive(true);
+        choices.transform.Find("Question").GetComponent<Text>().text = dialogue.question.que;
+        choices.transform.Find("Choi01").GetComponentInChildren<Text>().text = dialogue.question.Choice[0].choice;
+        if (dialogue.question.Choice.Length > 1)
+            choices.transform.Find("Choi02").GetComponentInChildren<Text>().text = dialogue.question.Choice[1].choice;
+        else
+            choices.transform.Find("Choi02").gameObject.SetActive(false);
+
+
+    }
+
+    public void runNextDialogue(int num)
+    {
+        if (dialogue.question.Choice[num].nextDialogue != null)
+            dialogue.question.Choice[num].nextDialogue.GetComponent<DialogueTrigger>().TriggerDialogue();
+        else
+        {
+            boxAnimator.SetBool("isOpen", false);
+            open = false;
+
+        }
+
+        
 
     }
 
