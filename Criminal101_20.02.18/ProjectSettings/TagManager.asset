@@ -7,6 +7,7 @@ TagManager:
   - movepoint
   - observe
   - Hideable
+  - wall
   layers:
   - Default
   - TransparentFX

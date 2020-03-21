@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/Scene/demo01.unity
     guid: 5a9ef93b18d5040c3bb3a50283301635
   - enabled: 1
-    path: Assets/Scene/01_lobby.unity
+    path: Assets/Scene/01_school.unity
     guid: bd754b5424ab84fe9929c7dd08c01f2a
+  - enabled: 1
+    path: Assets/Scene/01_lobby 1.unity
+    guid: 82f53648745904e03a5f290d20f34bc4
   m_configObjects: {}
